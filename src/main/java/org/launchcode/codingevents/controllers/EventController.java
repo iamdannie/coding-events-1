@@ -17,22 +17,26 @@ import java.util.List;
 @RequestMapping("events")
 public class EventController {
 
+    private static List<String> events = new ArrayList<>();
 
     @GetMapping
     public String displayAllEvents(Model model) {
-        List<String> events = new ArrayList<>();
-//        model.addAttribute("title", "All Events");
-        events.add("Code With Pride");
-        events.add("Strange Loop");
-        events.add("Apple WWDC");
-        events.add("SpringOne Platform");
         model.addAttribute("events", events);
         return "events/index";
     }
 
-//    //     Lives at /events/create
+    //    Lives at /events/create
     @GetMapping("create")
     public String renderCreateEventForm() {
         return "events/create";
     }
+//    lives at /events/create
+    @PostMapping("create")
+    public String createEvent(@RequestParam String eventName) {
+        events.add(eventName);
+        return "redirect:";
+    }
 }
+
+
+
